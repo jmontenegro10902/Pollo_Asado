@@ -1,0 +1,42 @@
+﻿.flip-container, .box-main {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    border: 1px solid #ccc;
+    perspective: 1000px;
+}
+
+.card, .box-main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.flip-container:hover .card {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+.front {
+    background-color: #ffffff;
+   
+}
+
+.back {
+    background-color: black ;
+    color: white;
+    transform: rotateY(180deg);
+}

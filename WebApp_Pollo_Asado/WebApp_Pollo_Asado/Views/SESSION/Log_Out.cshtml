@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_SESSION.cshtml";
+}
+
+<div class="card">
+    <div class="body">
+        <form id="sign_up" method="POST">
+            <div class="msg">REGISTRATION FORM</div>
+
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="material-icons">person</i>
+                </span>
+                <div class="form-line">
+                    <input type="text" class="form-control" name="nombres" placeholder="First Name" required autofocus>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="material-icons">person</i>
+                </span>
+                <div class="form-line">
+                    <input type="text" class="form-control" name="apellidos" placeholder="Last Name" required autofocus>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="material-icons">email</i>
+                </span>
+                <div class="form-line">
+                    <input type="email" class="form-control" name="email" placeholder="E-mail" required>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="material-icons">lock</i>
+                </span>
+                <div class="form-line">
+                    <input type="password" class="form-control" name="password" minlength="6" placeholder="Password" required>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="material-icons">lock</i>
+                </span>
+                <div class="form-line">
+                    <input type="password" class="form-control" name="confirm" minlength="6" placeholder="Confirm Password" required>
+                </div>
+            </div>
+
+
+            <a class="btn btn-block btn-lg bg-blue waves-effect" href="#" type="button">CREATE</a>
+
+            <div class="m-t-25 m-b--5 align-center">
+                <a href="@Url.Action("Log_In","SESSION")">I ALREADY HAVE AN ACCOUNT</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="~/plugins_session/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/plugins_session/bootstrap/js/bootstrap.js"></script>
+<!-- Waves Effect Plugin Js -->
+
+
+<script src="~/plugins_session/node-waves/waves.min.js"></script>
+<script src="~/plugins_session/node-waves/waves.js"></script>

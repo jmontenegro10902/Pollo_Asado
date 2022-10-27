@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout_SESSION.cshtml";
+}
+
+
+
+    
+        <div class="card">
+            <div class="body">
+                <form id="sign_in" method="POST">
+                    <div class="msg">LOG IN</div>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+
+                        <div class="form-line">
+                            <input type="text" class="form-control" name="usuario" placeholder="USERNAME" required autofocus>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">lock</i>
+                        </span>
+                        <div class="form-line">
+                            <input type="password" class="form-control" name="password" placeholder="PASSWORD" required>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-xs-8 p-t-5">
+                            <input type="checkbox" name="rememberme" id="rememberme" class="filled-in chk-col-green">
+                            <label for="rememberme">Remember</label>
+                        </div>
+                        <div class="col-xs-4">
+                    <a class="btn btn-block bg-green waves-effect " href="@Url.Action("Index","HOME")" type="button">LOG IN</a>
+                        </div>
+                    </div>
+                    <div class="row m-t-15 m-b--20">
+                        <div class="col-xs-6">
+                    <a href="@Url.Action("Log_Out","SESSION")">Regiter now</a>
+                        </div>
+                        <div class="col-xs-6 align-right">
+                    <a href="@Url.Action("Recover_PASS","SESSION")">Recover Password</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+ 
+
+    <!-- Bootstrap Core Js -->
+    
+    <script src="~/plugins_session/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/plugins_session/bootstrap/js/bootstrap.js"></script>
+    <!-- Waves Effect Plugin Js -->
+    
+    
+    <script src="~/plugins_session/node-waves/waves.min.js"></script>
+    <script src="~/plugins_session/node-waves/waves.js"></script>
+
