@@ -1,22 +1,22 @@
 ﻿using API_Pollo_Asado.Entities;
 using Dapper;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace API_Pollo_Asado.Models
 {
-    public class ProductoModel
+    public class MarcaModel
     {
         BitacoraModel bitacoraM = new BitacoraModel();
-        public ProductoObj? ObtenerProducto(string id_producto, IConfiguration stringConnection)
+        public MarcaObj? ObtenerMarca(string id_marca, IConfiguration stringConnection)
         {
             try
             {
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
-                    var datos = connection.Query<ProductoObj>("Consultar_Producto",
-                        new { Id_Producto = id_producto }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+
+                    var datos = connection.Query<MarcaObj>("Consultar_Marca",
+                        new { id_Marca = id_marca }, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                     if (datos != null)
                     {
@@ -34,13 +34,13 @@ namespace API_Pollo_Asado.Models
 
         }
 
-        public List<ProductoObj>? ObtenerProductos(IConfiguration stringConnection)
+        public List<MarcaObj>? ObtenerMarcas(IConfiguration stringConnection)
         {
             try
             {
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
-                    var datos = connection.Query<ProductoObj>("Consultar_Productos",
+                    var datos = connection.Query<MarcaObj>("Consultar_Marcas",
                         new { }, commandType: CommandType.StoredProcedure).ToList();
 
                     if (datos != null)
@@ -58,14 +58,14 @@ namespace API_Pollo_Asado.Models
             
         }
 
-        public bool ExisteProducto(string id_producto, IConfiguration stringConnection)
+        public bool ExisteMarca(string id_marca, IConfiguration stringConnection)
         {
             try
             {
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
-                    var datos = connection.Query<ProductoObj>("Consultar_Producto",
-                        new { id_producto }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    var datos = connection.Query<MarcaObj>("Consultar_Marca",
+                        new { id_marca }, commandType: CommandType.StoredProcedure).FirstOrDefault();
 
                     if (datos != null)
                     {
@@ -82,22 +82,17 @@ namespace API_Pollo_Asado.Models
             
         }
 
-        public int RegistrarProducto(ProductoObj producto, IConfiguration stringConnection)
+        public int RegistrarMarca(MarcaObj marca, IConfiguration stringConnection)
         {
             try
             {
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
-                    return connection.Execute("Agregar_Producto",
+                    return connection.Execute("Agregar_Marca",
                         new
                         {
-                            producto.Id_Producto,
-                            producto.Id_Marca,
-                            producto.Id_Categoria,
-                            producto.Nombre,
-                            producto.Precio,
-                            producto.Existencia,
-                            producto.RutaImagen
+                            marca.Id_Marca,
+                            marca.Descripcion,
                         }, commandType: CommandType.StoredProcedure);
                 }
             }
@@ -109,22 +104,18 @@ namespace API_Pollo_Asado.Models
             
         }
 
-        public int ActualizarProducto(ProductoObj producto, IConfiguration stringConnection)
+        public int ActualizarMarca(MarcaObj marca, IConfiguration stringConnection)
         {
             try
             {
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
-                    return connection.Execute("Actualizar_Producto",
+                    return connection.Execute("Actualizar_Marca",
                         new
                         {
-                            producto.Id_Producto,
-                            producto.Id_Marca,
-                            producto.Id_Categoria,
-                            producto.Nombre,
-                            producto.Precio,
-                            producto.Existencia,
-                            producto.RutaImagen
+                            marca.Id_Marca,
+                            marca.Descripcion,
+                            marca.Activo,
                         }, commandType: CommandType.StoredProcedure);
                 }
             }
@@ -136,15 +127,15 @@ namespace API_Pollo_Asado.Models
             
         }
 
-        public int EliminarProducto(string id_producto, IConfiguration stringConnection)
+        public int EliminarMarca(string Id_Marca, IConfiguration stringConnection)
         {
             try
             {
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
-                    return connection.Execute("Eliminar_Producto",
+                    return connection.Execute("Eliminar_Marca",
                         new
-                        { id_producto }, commandType: CommandType.StoredProcedure);
+                        { Id_Marca }, commandType: CommandType.StoredProcedure);
                 }
             }
             catch (Exception ex)
@@ -154,7 +145,5 @@ namespace API_Pollo_Asado.Models
             }
             
         }
-
-
     }
 }

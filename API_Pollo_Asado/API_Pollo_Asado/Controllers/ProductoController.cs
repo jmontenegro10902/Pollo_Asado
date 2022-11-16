@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿
+using API_Pollo_Asado.Entities;
+using API_Pollo_Asado.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PROYECTO_API.Entities;
-using PROYECTO_API.Models;
 
-namespace PROYECTO_API.Controllers
+namespace API_Pollo_Asado.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

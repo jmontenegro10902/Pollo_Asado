@@ -1,32 +1,32 @@
-﻿using API_Pollo_Asado.Entities;
+﻿
+using API_Pollo_Asado.Entities;
 using API_Pollo_Asado.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Pollo_Asado.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class MarcaController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        UsuarioModel usuarioM = new UsuarioModel();
+        MarcaModel marcaM = new MarcaModel();
         BitacoraModel bitacoraM = new BitacoraModel();
 
-        public UsuarioController(IConfiguration configuration)
+        public MarcaController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("ObtenerUsuario")]
-        public ActionResult<UsuarioObj> ObtenerProducto(string usuario)
+        [Route("ObtenerMarca")]
+        public ActionResult<MarcaObj> ObtenerMarca(string id_marca)
         {
             try
             {
-                var datos = usuarioM.ObtenerUsuario(usuario, _configuration);
+                var datos = marcaM.ObtenerMarca(id_marca, _configuration);
                 if (datos != null)
                     return Ok(datos);
                 else
@@ -41,12 +41,12 @@ namespace API_Pollo_Asado.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("ObtenerUsuarios")]
-        public ActionResult<UsuarioObj> ObtenerProductos()
+        [Route("ObtenerMarcas")]
+        public ActionResult<MarcaObj> ObtenerMarcas()
         {
             try
             {
-                var datos = usuarioM.ObtenerUsuarios(_configuration);
+                var datos = marcaM.ObtenerMarcas(_configuration);
                 if (datos != null)
                     return Ok(datos);
                 else
@@ -61,13 +61,13 @@ namespace API_Pollo_Asado.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("RegistrarUsuario")]
-        public ActionResult RegistrarUsuario(UsuarioObj usuario)
+        [Route("RegistrarMarca")]
+        public ActionResult RegistrarMarca(MarcaObj marca)
         {
             try
             {
-                if (usuarioM.ExisteUsuario(usuario.Usuario, _configuration) == false)
-                    if (usuarioM.RegistrarUsuario(usuario, _configuration) > 0)
+                if (marcaM.ExisteMarca(marca.Id_Marca, _configuration) == false)
+                    if (marcaM.RegistrarMarca(marca, _configuration) > 0)
                         return Ok();
                     else
                         return BadRequest();
@@ -76,65 +76,45 @@ namespace API_Pollo_Asado.Controllers
             }
             catch (Exception ex)
             {
-                bitacoraM.RegistrarErrores(usuario.Usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
+                bitacoraM.RegistrarErrores("Invitado", ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
                 return BadRequest("Se presentó un inconveniente");
             }
         }
 
         [AllowAnonymous]
         [HttpPut]
-        [Route("ActualizarUsuario")]
-        public ActionResult ActualizarProducto(UsuarioObj usuario)
+        [Route("ActualizarMarca")]
+        public ActionResult ActualizarMarca(MarcaObj marca)
         {
             try
             {
-                if (usuarioM.ActualizarUsuario(usuario, _configuration) > 0)
+                if (marcaM.ActualizarMarca(marca, _configuration) > 0)
                     return Ok();
                 else
                     return BadRequest();
             }
             catch (Exception ex)
             {
-                bitacoraM.RegistrarErrores(usuario.Usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
+                bitacoraM.RegistrarErrores("Invitado", ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
                 return BadRequest("Se presentó un inconveniente");
             }
         }
 
         [AllowAnonymous]
         [HttpDelete]
-        [Route("EliminarUsuario")]
-        public ActionResult EliminarProducto(string usuario)
+        [Route("EliminarMarca")]
+        public ActionResult EliminarMarca(string id_marca)
         {
             try
             {
-                if (usuarioM.EliminarUsuario(usuario, _configuration) > 0)
+                if (marcaM.EliminarMarca(id_marca, _configuration) > 0)
                     return Ok();
                 else
                     return BadRequest();
             }
             catch (Exception ex)
             {
-                bitacoraM.RegistrarErrores(usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
-                return BadRequest("Se presentó un inconveniente");
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("ValidarUsuario")]
-        public ActionResult<UsuarioObj> ValidarUsuario(UsuarioObj usuario)
-        {
-            try
-            {
-                var datos = usuarioM.ValidarUsuario(usuario, _configuration);
-                if (datos != null)
-                    return Ok(datos);
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                bitacoraM.RegistrarErrores(usuario.Usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
+                bitacoraM.RegistrarErrores("Invitado", ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
                 return BadRequest("Se presentó un inconveniente");
             }
         }

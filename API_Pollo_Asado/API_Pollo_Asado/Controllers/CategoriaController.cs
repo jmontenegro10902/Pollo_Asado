@@ -1,32 +1,32 @@
-﻿using API_Pollo_Asado.Entities;
+﻿
+using API_Pollo_Asado.Entities;
 using API_Pollo_Asado.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Pollo_Asado.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class CategoriaController : ControllerBase
     {
         private readonly IConfiguration _configuration;
-        UsuarioModel usuarioM = new UsuarioModel();
+        CategoriaModel categoriaM = new CategoriaModel();
         BitacoraModel bitacoraM = new BitacoraModel();
 
-        public UsuarioController(IConfiguration configuration)
+        public CategoriaController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("ObtenerUsuario")]
-        public ActionResult<UsuarioObj> ObtenerProducto(string usuario)
+        [Route("ObtenerCategoria")]
+        public ActionResult<CategoriaObj> ObtenerCategoria(string id_categoria)
         {
             try
             {
-                var datos = usuarioM.ObtenerUsuario(usuario, _configuration);
+                var datos = categoriaM.ObtenerCategoria(id_categoria, _configuration);
                 if (datos != null)
                     return Ok(datos);
                 else
@@ -41,12 +41,12 @@ namespace API_Pollo_Asado.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("ObtenerUsuarios")]
-        public ActionResult<UsuarioObj> ObtenerProductos()
+        [Route("ObtenerCategorias")]
+        public ActionResult<CategoriaObj> ObtenerCategorias()
         {
             try
             {
-                var datos = usuarioM.ObtenerUsuarios(_configuration);
+                var datos = categoriaM.ObtenerCategorias(_configuration);
                 if (datos != null)
                     return Ok(datos);
                 else
@@ -61,13 +61,13 @@ namespace API_Pollo_Asado.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("RegistrarUsuario")]
-        public ActionResult RegistrarUsuario(UsuarioObj usuario)
+        [Route("RegistrarCategoria")]
+        public ActionResult RegistrarCategoria(CategoriaObj categoria)
         {
             try
             {
-                if (usuarioM.ExisteUsuario(usuario.Usuario, _configuration) == false)
-                    if (usuarioM.RegistrarUsuario(usuario, _configuration) > 0)
+                if (categoriaM.ExisteCategoria(categoria.Id_Categoria, _configuration) == false)
+                    if (categoriaM.RegistrarCategoria(categoria, _configuration) > 0)
                         return Ok();
                     else
                         return BadRequest();
@@ -76,65 +76,45 @@ namespace API_Pollo_Asado.Controllers
             }
             catch (Exception ex)
             {
-                bitacoraM.RegistrarErrores(usuario.Usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
+                bitacoraM.RegistrarErrores("Invitado", ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
                 return BadRequest("Se presentó un inconveniente");
             }
         }
 
         [AllowAnonymous]
         [HttpPut]
-        [Route("ActualizarUsuario")]
-        public ActionResult ActualizarProducto(UsuarioObj usuario)
+        [Route("ActualizarCategoria")]
+        public ActionResult ActualizarCategoria(CategoriaObj categoria)
         {
             try
             {
-                if (usuarioM.ActualizarUsuario(usuario, _configuration) > 0)
+                if (categoriaM.ActualizarCategoria(categoria, _configuration) > 0)
                     return Ok();
                 else
                     return BadRequest();
             }
             catch (Exception ex)
             {
-                bitacoraM.RegistrarErrores(usuario.Usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
+                bitacoraM.RegistrarErrores("Invitado", ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
                 return BadRequest("Se presentó un inconveniente");
             }
         }
 
         [AllowAnonymous]
         [HttpDelete]
-        [Route("EliminarUsuario")]
-        public ActionResult EliminarProducto(string usuario)
+        [Route("EliminarCategoria")]
+        public ActionResult EliminarCategoria(string id_categoria)
         {
             try
             {
-                if (usuarioM.EliminarUsuario(usuario, _configuration) > 0)
+                if (categoriaM.EliminarCategoria(id_categoria, _configuration) > 0)
                     return Ok();
                 else
                     return BadRequest();
             }
             catch (Exception ex)
             {
-                bitacoraM.RegistrarErrores(usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
-                return BadRequest("Se presentó un inconveniente");
-            }
-        }
-
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("ValidarUsuario")]
-        public ActionResult<UsuarioObj> ValidarUsuario(UsuarioObj usuario)
-        {
-            try
-            {
-                var datos = usuarioM.ValidarUsuario(usuario, _configuration);
-                if (datos != null)
-                    return Ok(datos);
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                bitacoraM.RegistrarErrores(usuario.Usuario, ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
+                bitacoraM.RegistrarErrores("Invitado", ex, ControllerContext.ActionDescriptor.ActionName, _configuration);
                 return BadRequest("Se presentó un inconveniente");
             }
         }

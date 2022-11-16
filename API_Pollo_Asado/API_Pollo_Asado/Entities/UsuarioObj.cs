@@ -1,4 +1,4 @@
-﻿namespace PROYECTO_API.Entities
+﻿namespace API_Pollo_Asado.Entities
 {
     public class UsuarioObj
     {
