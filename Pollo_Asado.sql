@@ -1,10 +1,10 @@
 USE [master]
 GO
 
-CREATE DATABASE Pollo_Asado
+CREATE DATABASE Pollo_Asado2
 GO
 
-USE Pollo_Asado
+USE Pollo_Asado2
 GO
 
 /****** Object:  Table [dbo].[Carrito]    Script Date: 16/11/2022 12:35:42:a. m. ******/
@@ -57,9 +57,9 @@ CREATE TABLE [dbo].[Error](
 	[IdError] [bigint] IDENTITY(1,1) NOT NULL,
 	[Usuario] [varchar](20) NOT NULL,
 	[Fecha] [datetime] NOT NULL,
-	[Codigo] [int] NOT NULL,
-	[Mensaje] [varchar](50) NOT NULL,
-	[Accion] [varchar](max) NOT NULL,
+	[Codigo] [bigint] NOT NULL,
+	[Mensaje] [varchar](MAX) NOT NULL,
+	[Accion] [varchar](MAX) NOT NULL,
  CONSTRAINT [pk_IdError] PRIMARY KEY CLUSTERED 
 (
 	[IdError] ASC
@@ -296,6 +296,9 @@ INSERT [dbo].[Usuario] ([Usuario], [Contrasena], [Nombre], [Cedula], [Activo], [
 GO
 INSERT [dbo].[Usuario] ([Usuario], [Contrasena], [Nombre], [Cedula], [Activo], [CambioContrasenna], [idRol], [Apellidos], [Correo]) VALUES (N'usuario04', N'Prueba', N'Jose Daniel', N'Da123456', 1, 0, N'r04', N'Gómez Jiménez', NULL)
 GO
+INSERT [dbo].[Usuario] ([Usuario], [Contrasena], [Nombre], [Cedula], [Activo], [CambioContrasenna], [idRol], [Apellidos], [Correo]) VALUES (N'Invitado', N'Invitado', N'Invitado', N'Invitado', 1, 0, N'r02', N'Invitado', NULL)
+GO
+
 ALTER TABLE [dbo].[Categoria] ADD  DEFAULT ((1)) FOR [Activo]
 GO
 ALTER TABLE [dbo].[Marca] ADD  DEFAULT ((1)) FOR [Activo]
@@ -681,8 +684,8 @@ GO
 
 CREATE PROCEDURE [dbo].[Registrar_Errores]
 	@Usuario	VARCHAR(20),
-	@Codigo		INT,
-	@Mensaje	VARCHAR(50),
+	@Codigo		BIGINT,
+	@Mensaje	VARCHAR(MAX),
 	@Accion		VARCHAR(MAX)
 AS
 BEGIN

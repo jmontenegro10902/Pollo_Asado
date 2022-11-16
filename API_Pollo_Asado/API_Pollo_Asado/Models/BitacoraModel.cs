@@ -14,7 +14,7 @@ namespace API_Pollo_Asado.Models
                 using (var connection = new SqlConnection(stringConnection.GetSection("ConnectionStrings:Connection").Value))
                 {
                     int Codigo = ex.HResult;
-                    string Mensaje = ex.Message;
+                    string Mensaje = ex.Message; 
 
                     var datos = connection.Execute("Registrar_Errores",
                         new { Usuario, Codigo, Mensaje, Accion }, commandType: CommandType.StoredProcedure);
